@@ -66,7 +66,7 @@
                         <li>
                             <a href="<?php echo UBICACION; ?>" class="footer-link" target="_blank" >
                                 <i class="fab fa-ubicaion fa-fw"></i>
-                                Ubicacion   
+                            Ubicacion   
                              </a>
                         </li>
                 </ul>
