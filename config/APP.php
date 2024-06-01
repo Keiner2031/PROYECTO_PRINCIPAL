@@ -38,6 +38,7 @@
 	const INSTAGRAM="";
 	const YOUTUBE="";
 	const TWITTER="";
+	const UBICACION="https://maps.app.goo.gl/HBvM4j2kgYc4Z2rz7";
 
 
 	/*----------  Direccion - Address  ----------*/

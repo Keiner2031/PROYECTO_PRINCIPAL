@@ -59,7 +59,16 @@
                                 Twitter
                         </a>
                     </li>
-                    <?php } ?>
+                    <?php 
+                        }
+                        if (UBICACION!="")
+                        ?>
+                        <li>
+                            <a href="<?php echo UBICACION; ?>" class="footer-link" target="_blank" >
+                                <i class="fab fa-ubicaion fa-fw"></i>
+                                Ubicacion   
+                             </a>
+                        </li>
                 </ul>
             </div>
         </div>
