@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 10-06-2021 a las 22:19:49
--- Versión del servidor: 5.7.24
--- Versión de PHP: 7.4.15
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-06-2024 a las 22:05:38
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sto`
+-- Base de datos: `tienda`
 --
 
 -- --------------------------------------------------------
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `caja` (
   `caja_id` int(5) NOT NULL,
   `caja_numero` int(5) NOT NULL,
-  `caja_nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `caja_estado` varchar(17) COLLATE utf8_spanish2_ci NOT NULL,
+  `caja_nombre` varchar(100) NOT NULL,
+  `caja_estado` varchar(17) NOT NULL,
   `caja_efectivo` decimal(30,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -43,10 +43,17 @@ CREATE TABLE `caja` (
 
 CREATE TABLE `categoria` (
   `categoria_id` int(10) NOT NULL,
-  `categoria_nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `categoria_descripcion` text COLLATE utf8_spanish2_ci NOT NULL,
-  `categoria_estado` varchar(20) COLLATE utf8_spanish2_ci NOT NULL
+  `categoria_nombre` varchar(50) NOT NULL,
+  `categoria_descripcion` text NOT NULL,
+  `categoria_estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`categoria_id`, `categoria_nombre`, `categoria_descripcion`, `categoria_estado`) VALUES
+(1, 'Plastico', '', 'Habilitada');
 
 -- --------------------------------------------------------
 
@@ -56,19 +63,30 @@ CREATE TABLE `categoria` (
 
 CREATE TABLE `cliente` (
   `cliente_id` int(10) NOT NULL,
-  `cliente_nombre` varchar(37) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_apellido` varchar(37) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_genero` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_telefono` varchar(22) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_provincia` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_ciudad` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_direccion` varchar(70) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_clave` varchar(535) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_foto` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_cuenta_estado` varchar(17) COLLATE utf8_spanish2_ci NOT NULL,
-  `cliente_cuenta_verificada` varchar(17) COLLATE utf8_spanish2_ci NOT NULL
+  `cliente_nombre` varchar(37) NOT NULL,
+  `cliente_apellido` varchar(37) NOT NULL,
+  `cliente_genero` varchar(10) NOT NULL,
+  `cliente_telefono` varchar(22) NOT NULL,
+  `cliente_provincia` varchar(30) NOT NULL,
+  `cliente_ciudad` varchar(30) NOT NULL,
+  `cliente_direccion` varchar(70) NOT NULL,
+  `cliente_email` varchar(50) NOT NULL,
+  `cliente_clave` varchar(535) NOT NULL,
+  `cliente_foto` varchar(200) NOT NULL,
+  `cliente_cuenta_estado` varchar(17) NOT NULL,
+  `cliente_cuenta_verificada` varchar(17) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`cliente_id`, `cliente_nombre`, `cliente_apellido`, `cliente_genero`, `cliente_telefono`, `cliente_provincia`, `cliente_ciudad`, `cliente_direccion`, `cliente_email`, `cliente_clave`, `cliente_foto`, `cliente_cuenta_estado`, `cliente_cuenta_verificada`) VALUES
+(1, 'keiner', 'serrano', 'Masculino', '345754322', 'aguas calientes', 'cucuta', 'cale 26', 'keinerserrano04@gmail.com', 'TldBazZacUpnSXhZZ0tDKzdKaHU3Zz09', 'Avatar_default_male.png', 'Activa', 'Verificada'),
+(2, 'jaskad', 'wewewe', 'Masculino', '3246842135', 'motilones', 'cucuta', 'calle 26#18-21', 'juanserrano08@gmail.com', 'TldBazZacUpnSXhZZ0tDKzdKaHU3Zz09', 'Avatar_default_male.png', 'Activa', 'No verificada'),
+(3, 'keiner', 'serrano', 'Masculino', '3223257203', 'aguas calientes', 'cucuta', 'cale 26', 'keinerserrano03@gmail.com', 'M2FzNWhUeWtMUkpISnNFbjdsYy94dz09', 'Avatar_Male_1.png', 'Activa', 'No verificada'),
+(4, 'keiner', 'serrano', 'Masculino', '1234567890', 'aguas calientes', 'cucuta', 'cale 26', 'keinerserrano01@gmail.com', 'alp6aXErM2RCOWJDT25Ta29Ba25mQT09', 'Avatar_Male_4.png', 'Activa', 'No verificada'),
+(5, 'keiner', 'serrano', 'Masculino', '543216789', 'aguas calientes', 'cucuta', 'cale 26', 'keinerserrano02@gmail.com', 'Rk1IdlN1b0t5YlBReE9KVTRmNE5yZz09', 'Avatar_Male_4.png', 'Activa', 'No verificada');
 
 -- --------------------------------------------------------
 
@@ -78,15 +96,15 @@ CREATE TABLE `cliente` (
 
 CREATE TABLE `empresa` (
   `empresa_id` int(3) NOT NULL,
-  `empresa_tipo_documento` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_numero_documento` varchar(35) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_nombre` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_telefono` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_direccion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `empresa_impuesto_nombre` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+  `empresa_tipo_documento` varchar(20) NOT NULL,
+  `empresa_numero_documento` varchar(35) NOT NULL,
+  `empresa_nombre` varchar(90) NOT NULL,
+  `empresa_telefono` varchar(20) NOT NULL,
+  `empresa_email` varchar(50) NOT NULL,
+  `empresa_direccion` varchar(100) NOT NULL,
+  `empresa_impuesto_nombre` varchar(10) NOT NULL,
   `empresa_impuesto_porcentaje` int(3) NOT NULL,
-  `empresa_factura_impuestos` varchar(3) COLLATE utf8_spanish2_ci NOT NULL
+  `empresa_factura_impuestos` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -110,7 +128,7 @@ CREATE TABLE `favorito` (
 
 CREATE TABLE `imagen` (
   `imagen_id` int(30) NOT NULL,
-  `imagen_nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen_nombre` varchar(200) NOT NULL,
   `producto_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -122,23 +140,30 @@ CREATE TABLE `imagen` (
 
 CREATE TABLE `producto` (
   `producto_id` int(20) NOT NULL,
-  `producto_codigo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_sku` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_descripcion` varchar(535) COLLATE utf8_spanish2_ci NOT NULL,
+  `producto_codigo` varchar(50) NOT NULL,
+  `producto_sku` varchar(50) NOT NULL,
+  `producto_nombre` varchar(200) NOT NULL,
+  `producto_descripcion` varchar(535) NOT NULL,
   `producto_stock` int(10) NOT NULL,
   `producto_stock_minimo` int(10) NOT NULL,
   `producto_precio_compra` decimal(30,2) NOT NULL,
   `producto_precio_venta` decimal(30,2) NOT NULL,
   `producto_descuento` int(3) NOT NULL,
-  `producto_tipo` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_presentacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_marca` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_modelo` varchar(70) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_estado` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_portada` varchar(300) COLLATE utf8_spanish2_ci NOT NULL,
+  `producto_tipo` varchar(10) NOT NULL,
+  `producto_presentacion` varchar(30) NOT NULL,
+  `producto_marca` varchar(50) NOT NULL,
+  `producto_modelo` varchar(70) NOT NULL,
+  `producto_estado` varchar(20) NOT NULL,
+  `producto_portada` varchar(300) NOT NULL,
   `categoria_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`producto_id`, `producto_codigo`, `producto_sku`, `producto_nombre`, `producto_descripcion`, `producto_stock`, `producto_stock_minimo`, `producto_precio_compra`, `producto_precio_venta`, `producto_descuento`, `producto_tipo`, `producto_presentacion`, `producto_marca`, `producto_modelo`, `producto_estado`, `producto_portada`, `categoria_id`) VALUES
+(1, '23525232', '1', 'Manguera', '', 4, 2, 1500.00, 2000.00, 0, 'Fisico', 'Unidad', 'manguerassas', '', 'Habilitado', 'E2J2B1D8Z9-1.png', 1);
 
 -- --------------------------------------------------------
 
@@ -148,16 +173,16 @@ CREATE TABLE `producto` (
 
 CREATE TABLE `usuario` (
   `usuario_id` int(10) NOT NULL,
-  `usuario_nombre` varchar(37) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_apellido` varchar(37) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_telefono` varchar(22) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_genero` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_cargo` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_usuario` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_clave` varchar(535) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_cuenta_estado` varchar(17) COLLATE utf8_spanish2_ci NOT NULL,
-  `usuario_foto` varchar(200) COLLATE utf8_spanish2_ci NOT NULL
+  `usuario_nombre` varchar(37) NOT NULL,
+  `usuario_apellido` varchar(37) NOT NULL,
+  `usuario_telefono` varchar(22) NOT NULL,
+  `usuario_genero` varchar(10) NOT NULL,
+  `usuario_cargo` varchar(20) NOT NULL,
+  `usuario_usuario` varchar(30) NOT NULL,
+  `usuario_email` varchar(50) NOT NULL,
+  `usuario_clave` varchar(535) NOT NULL,
+  `usuario_cuenta_estado` varchar(17) NOT NULL,
+  `usuario_foto` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -175,14 +200,14 @@ INSERT INTO `usuario` (`usuario_id`, `usuario_nombre`, `usuario_apellido`, `usua
 
 CREATE TABLE `venta` (
   `venta_id` int(20) NOT NULL,
-  `venta_codigo` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `venta_codigo` varchar(200) NOT NULL,
   `venta_fecha` date NOT NULL,
-  `venta_hora` varchar(17) COLLATE utf8_spanish2_ci NOT NULL,
-  `venta_tipo_envio` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `venta_impuesto_nombre` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+  `venta_hora` varchar(17) NOT NULL,
+  `venta_tipo_envio` varchar(20) NOT NULL,
+  `venta_impuesto_nombre` varchar(10) NOT NULL,
   `venta_impuesto_porcentaje` int(3) NOT NULL,
-  `venta_estado_envio` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `venta_estado_pagado` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `venta_estado_envio` varchar(20) NOT NULL,
+  `venta_estado_pagado` varchar(20) NOT NULL,
   `venta_subtotal` decimal(30,2) NOT NULL,
   `venta_impuestos` decimal(30,2) NOT NULL,
   `venta_total` decimal(30,2) NOT NULL,
@@ -211,8 +236,8 @@ CREATE TABLE `venta_detalle` (
   `venta_detalle_total` decimal(30,2) NOT NULL,
   `venta_detalle_costo` decimal(30,2) NOT NULL,
   `venta_detalle_utilidad` decimal(30,2) NOT NULL,
-  `venta_detalle_descripcion` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `venta_codigo` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `venta_detalle_descripcion` varchar(200) NOT NULL,
+  `venta_codigo` varchar(200) NOT NULL,
   `producto_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -304,13 +329,13 @@ ALTER TABLE `caja`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `categoria_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoria_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cliente_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `cliente_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -334,7 +359,7 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `producto_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `producto_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
